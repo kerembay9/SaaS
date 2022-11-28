@@ -1,7 +1,7 @@
 import React, {useState, useEffect} from 'react';
 import { GridComponent, ColumnsDirective, ColumnDirective, ContextMenu, Page, Edit, Inject, Search, Toolbar } from '@syncfusion/ej2-react-grids';
 import { Header } from '../components';
-import axios from 'axios';
+import { DataManager, WebApiAdaptor, Query} from '@syncfusion/ej2/data';
 const Employees = () => {
   const employeesGrid = [
     { type: 'checkbox', width: '50' },
@@ -37,20 +37,27 @@ const Employees = () => {
   ];
   const [employees, setEmployees] = useState()
   const baseURL = "http://127.0.0.1:8000/employees/";
-    useEffect(() => {
-      axios.get(baseURL, {
-        auth: {
-          username: 'admin',
-          password: 'password123'
-        },
-       headers: {
-         'Content-type': 'application/json',
-       },
-       }).then((response) => {
-          setEmployees(response.data.results);
-          console.log(employees)
-      },[]);
-    }, [])
+  useEffect(() => {
+   new DataManager({
+     adaptor: new WebApiAdaptor(),
+     insertUrl: baseURL,
+     removeUrl: baseURL,
+     updateUrl: baseURL,
+     url: baseURL,
+     authentication: {
+       username: 'admin',
+       password: 'password123'
+     }, 
+     'content-type': 'application/json',    
+   }).executeQuery(new Query())
+   .then((response) => {
+       setEmployees(response.result)
+       console.log(response);
+       },[]);;
+   console.log(employees);
+    
+  }, [])
+  
   return (
     <div className=' hero-pattern m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl'>
       <Header category="Page" title="Employees" />
@@ -58,7 +65,8 @@ const Employees = () => {
       dataSource={employees}
       allowPaging
       allowSorting
-      toolbar={['Search']}
+      toolbar={['Add','Edit','Delete','Search']}
+      editSettings={{allowDeleting:true,allowAdding:true, allowEditing:true, mode:"Dialog"}}
       width="auto"
       >
         <ColumnsDirective>

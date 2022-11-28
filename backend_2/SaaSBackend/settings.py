@@ -59,6 +59,13 @@ MIDDLEWARE = [
 ROOT_URLCONF = 'SaaSBackend.urls'
 
 CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_HEADERS = [
+    "header",
+    "auth",
+    "authentication",
+    "content-type",   
+    "Content-type",
+]
 
 TEMPLATES = [
     {
@@ -78,10 +85,10 @@ TEMPLATES = [
 
 WSGI_APPLICATION = 'SaaSBackend.wsgi.application'
 
-REST_FRAMEWORK = {
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'PAGE_SIZE': 10
-}
+# REST_FRAMEWORK = {
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'PAGE_SIZE': 10
+# }
 
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
