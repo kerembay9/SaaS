@@ -76,6 +76,11 @@ const gridEmployeeCountry = (props) => (
     <span>{props.Country}</span>
   </div>
 );
+const gridDate = (props) => (
+  <div className="flex items-center justify-center gap-2">
+    <span>{props.joined_at.substring(0, props.joined_at.indexOf('T'))}</span>
+  </div>
+);
 export const EditorData = () => (
   <div>
     <h3>
@@ -402,10 +407,9 @@ export const customersGrid = [
     textAlign: 'Center',
   },
   {
-    field: 'joined_at',
     headerText: 'Üyelik başlangıcı',
     width: '150',
-    format: 'yMd',
+    template: gridDate,
     textAlign: 'Center' },
 
   { field: 'total_expenditure',
