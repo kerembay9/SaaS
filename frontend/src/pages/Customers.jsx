@@ -21,6 +21,28 @@ const Customers = () => {
   }, []);
   
 
+  const handleActionBegin = (args) => {
+    if (args.requestType === 'delete') {
+      const customerId = args.data[0].id; // Replace with your unique identifier field
+      
+      // Make an HTTP DELETE request to your Django backend
+      fetch(`http://127.0.0.1:8000/customers/${customerId}/`, {
+        method: 'DELETE',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+      })
+        .then((response) => response.json())
+        .then((data) => {
+          // Handle success or error response from the backend
+          console.log(data.message);
+        })
+        .catch((error) => {
+          console.error('Error deleting customer:', error);
+        });
+    }
+  };
+
   return (
     <div className=' hero-pattern m-2 md:m-10 p-2 md:p-10 bg-white rounded-3xl'>
       <Header category="Page" title="Customers" />
@@ -30,9 +52,10 @@ const Customers = () => {
       dataSource={customersData}
       allowPaging
       allowSorting
-      toolbar={['Delete']}
+      toolbar={['Delete', 'Search']}
       editSettings={{allowDeleting:true, allowEditing:true}}
       width="auto"
+      actionBegin={handleActionBegin}
       >
         <ColumnsDirective>
         {customersGrid.map((item,index)=>(

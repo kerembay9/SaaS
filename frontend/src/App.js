@@ -49,7 +49,7 @@ function App() {
         <Route path='/' element={<Ecommerce/>} />
         <Route path='/eCommerce' element={<Ecommerce/>}/>
          {/* Pages  */}
-        <Route path='/orders' element={<Orders/>}/>
+        {/* <Route path='/orders' element={<Orders/>}/> */}
         <Route path='/employees' element={<Employees/>}/>
         <Route path='/customers' element={<Customers/>}/>
          {/*  Apps  */}
@@ -58,8 +58,8 @@ function App() {
         <Route path='/calendar' element={<Calendar/>}/>
         <Route path='/color-picker' element={<ColorPicker/>}/>
          {/*  Charts  */}
-        <Route path='/line' element={<Line/>}/>
-        <Route path='/area' element={<Area/>}/>
+        {/* <Route path='/line' element={<Line/>}/>
+        <Route path='/area' element={<Area/>}/> */}
     </Routes>
         </div>
         </div>

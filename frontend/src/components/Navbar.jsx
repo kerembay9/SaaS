@@ -46,7 +46,7 @@ useEffect(()=>{
       <NavButton title="Menu" customFunc={handleActiveMenu} color={currentColor} icon={<AiOutlineMenu />} />
     
     <div className='flex '>
-    <NavButton
+    {/* <NavButton
     title="Cart"
     customFunc={()=> handleClick('cart')} color={currentColor}
     icon={<FiShoppingCart />}
@@ -56,13 +56,13 @@ useEffect(()=>{
     dotColor="#03C9D7"
     customFunc={()=> handleClick('chat')} color={currentColor}
     icon={<BsChatLeft />}
-    />
+    /> 
     <NavButton
     title="Notifications"
     dotColor="#03C9D7"
     customFunc={()=> handleClick('notification')} color={currentColor}
     icon={<RiNotification3Line />}
-    />
+    />*/}
     <TooltipComponent
     content="Profile"
     position="BottomCenter">
@@ -80,10 +80,10 @@ useEffect(()=>{
 
     </div>
     </TooltipComponent>
-    {isClicked.cart && <Cart />}
+    {/* {isClicked.cart && <Cart />}
     {isClicked.chat && <Chat />}
     {isClicked.notification && <Notification />}
-    {isClicked.userProfile && <UserProfile />}
+    {isClicked.userProfile && <UserProfile />} */}
     </div>
     </div>
 
