@@ -3,7 +3,7 @@
  import {FiSettings} from 'react-icons/fi';
  import { TooltipComponent } from '@syncfusion/ej2-react-popups';
  import { Navbar, Sidebar, ThemeSettings} from './components';
- import { Ecommerce, Orders, Calendar, Employees, Customers, Kanban,Line, Area, ColorPicker, Editor} from './pages';
+ import { Ecommerce, Calendar, Employees, Customers, Kanban, ColorPicker, Editor} from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
  

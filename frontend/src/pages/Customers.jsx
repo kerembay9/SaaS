@@ -23,14 +23,23 @@ const Customers = () => {
 
   const handleActionBegin = (args) => {
     if (args.requestType === 'delete') {
-      const customerId = args.data[0].id; // Replace with your unique identifier field
-      
+      const selectedCustomers = args.data;
+      const confirmDelete = window.confirm('Bu müşteri/müşterileri silmek istediğinizden emin misiniz?');
+      if (!confirmDelete) {
+        // The user canceled the deletion
+        return;
+      }
+      const customerIds = selectedCustomers.map((customer) => customer.id);
+      console.log(customerIds)
       // Make an HTTP DELETE request to your Django backend
-      fetch(`http://127.0.0.1:8000/customers/${customerId}/`, {
-        method: 'DELETE',
+      fetch(`http://127.0.0.1:8000/customers/bulk-delete-customers/`, {
+        method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
+        body: JSON.stringify({
+          customer_ids: customerIds
+        })
       })
         .then((response) => response.json())
         .then((data) => {

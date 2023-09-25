@@ -1,8 +1,7 @@
 import React from 'react';
-import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineStock } from 'react-icons/ai';
+import { AiOutlineCalendar} from 'react-icons/ai';
 import { FiShoppingBag, FiEdit, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
 import { BsKanban, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
-import { BiColorFill } from 'react-icons/bi';
 import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine } from 'react-icons/ri';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
@@ -59,23 +58,6 @@ export const kanbanGrid = [
     keyField: 'Close',
     allowToggle: true },
 ];
-const gridEmployeeProfile = (props) => (
-  <div className="flex items-center gap-2">
-    <img
-      className="rounded-full w-10 h-10"
-      src={props.EmployeeImage}
-      alt="employee"
-    />
-    <p>{props.Name}</p>
-  </div>
-);
-
-const gridEmployeeCountry = (props) => (
-  <div className="flex items-center justify-center gap-2">
-    <GrLocation />
-    <span>{props.Country}</span>
-  </div>
-);
 const gridDate = (props) => (
   <div className="flex items-center justify-center gap-2">
     <span>{props.joined_at.substring(0, props.joined_at.indexOf('T'))}</span>
@@ -419,38 +401,16 @@ export const customersGrid = [
 ];
 
 export const employeesGrid = [
-  { headerText: 'Employee',
-    width: '150',
-    template: gridEmployeeProfile,
-    textAlign: 'Center' },
+  { type: 'checkbox', width: '50' },
   { field: 'name',
-    headerText: '',
-    width: '0',
+    headerText: 'Isim',
+    width: '150',
     textAlign: 'Center',
   },
-  { field: 'surname',
-    headerText: 'surname',
-    width: '170',
-    textAlign: 'Center',
-  },
-  { headerText: 'Country',
-    width: '120',
-    textAlign: 'Center',
-    template: gridEmployeeCountry },
-
-  { field: 'HireDate',
-    headerText: 'Hire Date',
+  { field: 'joined_at',
+    headerText: 'Ise baslama tarihi',
     width: '135',
-    format: 'yMd',
-    textAlign: 'Center' },
-
-  { field: 'ReportsTo',
-    headerText: 'Reports To',
-    width: '120',
-    textAlign: 'Center' },
-  { field: 'EmployeeID',
-    headerText: 'Employee ID',
-    width: '125',
+    template: gridDate,
     textAlign: 'Center' },
 ];
 
