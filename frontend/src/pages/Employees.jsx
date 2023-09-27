@@ -55,8 +55,8 @@ const Employees = () => {
       dataSource={employeeData}
       allowPaging
       allowSorting
-      toolbar={['Delete', 'Search']}
-      editSettings={{allowDeleting:true, allowEditing:true}}
+      toolbar={['Add', 'Edit', 'Delete', 'Update', 'Cancel','Search']}
+      editSettings={{allowDeleting:true, allowEditing:true, allowAdding: true}}
       width="auto"
       actionBegin={handleActionBegin}
       >

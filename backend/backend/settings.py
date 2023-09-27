@@ -42,6 +42,7 @@ INSTALLED_APPS = [
     'djoser',
     'customers',
     'employees',
+    'calendarevents',
 ]
 
 MIDDLEWARE = [

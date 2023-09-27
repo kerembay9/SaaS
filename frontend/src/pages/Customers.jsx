@@ -22,34 +22,42 @@ const Customers = () => {
   
 
   const handleActionBegin = (args) => {
-    if (args.requestType === 'delete') {
-      const selectedCustomers = args.data;
-      const confirmDelete = window.confirm('Bu müşteri/müşterileri silmek istediğinizden emin misiniz?');
-      if (!confirmDelete) {
-        // The user canceled the deletion
+    console.log(args.requestType)
+    switch (args.requestType) {
+      case 'delete':
+          const selectedCustomers = args.data;
+          const confirmDelete = window.confirm('Bu müşteri/müşterileri silmek istediğinizden emin misiniz?');
+          if (!confirmDelete) {
+            // The user canceled the deletion
+            return;
+          }
+          const customerIds = selectedCustomers.map((customer) => customer.id);
+          console.log(customerIds)
+          // Make an HTTP DELETE request to your Django backend
+          fetch(`http://127.0.0.1:8000/customers/bulk-delete-customers/`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({
+              customer_ids: customerIds
+            })
+          })
+            .then((response) => {
+              if (!response.ok) {
+                throw new Error(`Failed to delete event: ${response.statusText}`);
+              }
+            })
+            .catch((error) => {
+              console.error('Error deleting customer:', error);
+            });
+        return;
+      case 'Add':
+        console.log('entered Add')
+        return;
+      default:
         return;
       }
-      const customerIds = selectedCustomers.map((customer) => customer.id);
-      console.log(customerIds)
-      // Make an HTTP DELETE request to your Django backend
-      fetch(`http://127.0.0.1:8000/customers/bulk-delete-customers/`, {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json',
-        },
-        body: JSON.stringify({
-          customer_ids: customerIds
-        })
-      })
-        .then((response) => response.json())
-        .then((data) => {
-          // Handle success or error response from the backend
-          console.log(data.message);
-        })
-        .catch((error) => {
-          console.error('Error deleting customer:', error);
-        });
-    }
   };
 
   return (
@@ -61,8 +69,8 @@ const Customers = () => {
       dataSource={customersData}
       allowPaging
       allowSorting
-      toolbar={['Delete', 'Search']}
-      editSettings={{allowDeleting:true, allowEditing:true}}
+      toolbar={['Add', 'Edit', 'Delete', 'Update', 'Cancel','Search']}
+      editSettings={{allowDeleting:true, allowEditing:true, allowAdding: true}}
       width="auto"
       actionBegin={handleActionBegin}
       >
