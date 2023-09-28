@@ -1,5 +1,4 @@
 import React from 'react';
-import { Button } from '.'
 
 const button = ({bgColor, color, size, text, borderRadius}) => {
   return (
