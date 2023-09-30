@@ -390,7 +390,8 @@ export const customersGrid = [
   {
     headerText: 'Üyelik başlangıcı',
     width: '150',
-    template: gridDate,
+    type:'date',
+    editType:"datetimepickeredit",
     textAlign: 'Center' },
 
   { field: 'total_expenditure',
@@ -409,7 +410,8 @@ export const employeesGrid = [
   { field: 'joined_at',
     headerText: 'Ise baslama tarihi',
     width: '135',
-    template: gridDate,
+    type:'date',
+    editType:"datepickeredit",
     textAlign: 'Center' },
 ];
 
@@ -3139,20 +3141,20 @@ export const stackedPrimaryYAxis = {
   labelFormat: '{value}',
 };
 
-export const kanbanData = [
+export const kanbanDatas = [
   {
-    Id: 'Task 1',
+    id: 'Task 1',
     Title: 'Task - 29001',
     Status: 'Open',
     Summary: 'Analyze the new requirements gathered from the customer.',
-    Type: 'Story',
-    Priority: 'Low',
-    Tags: 'Analyze,Customer',
-    Estimate: 3.5,
-    Assignee: 'Nancy Davloio',
-    RankId: 1,
-    Color: '#02897B',
-    ClassName: 'e-story, e-low, e-nancy-davloio',
+    // Type: 'Story',
+    // Priority: 'Low',
+    // Tags: 'Analyze,Customer',
+    // Estimate: 3.5,
+    // Assignee: 'Nancy Davloio',
+    // RankId: 1,
+    // Color: '#02897B',
+    // ClassName: 'e-story, e-low, e-nancy-davloio',
   },
   {
     Id: 'Task 2',

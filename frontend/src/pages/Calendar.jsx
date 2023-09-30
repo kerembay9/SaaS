@@ -5,15 +5,16 @@ import { Header } from '../components';
 const Calendar = () => {
   const [scheduleData, setScheduleData] = useState([]); // State to store calendar events
 
-  useEffect(() => {
-    // Fetch initial data from the server
-    fetchDataFromServer();
-  }, []);
+  // useEffect(() => {
+  //   // Fetch initial data from the server
+  //   fetchDataFromServer();
+  // }, []);
 
   const fetchDataFromServer = () => {
     // Make an HTTP request to fetch initial calendar event data from the server
     // Example using the fetch API:
     const apiUrl = 'http://127.0.0.1:8000/calendar/';
+    console.log('entered fetch')
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
@@ -80,6 +81,10 @@ const Calendar = () => {
         case 'eventRemoved':
           const deleteEvent =  args.data[0];
           deleteDataFromServer(deleteEvent)
+          return;
+        case 'refreshed':
+          console.log('entered refreshed')
+
           return;
         default:
           return;
