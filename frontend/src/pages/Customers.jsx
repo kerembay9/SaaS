@@ -3,7 +3,7 @@ import { GridComponent, ColumnsDirective, ColumnDirective, Page, Selection, Inje
 import { customersGrid} from '../data/dummy'; // customersData
 import { Header } from '../components';
 
-
+// TO-DO : Tarih değerleri server'a düzgün gitmeyor olabilir
 const Customers = () => {
   const [customersData, setCustomersData] = useState([]);
   const [action, setAction] = useState('add')
@@ -65,7 +65,6 @@ const Customers = () => {
         switch(action){
           case 'update':
             const apiUrl = `http://127.0.0.1:8000/customers/${args.data.id}/`;
-            console.log(apiUrl)
             fetch(apiUrl,{
               method: 'PUT',
               headers: {

@@ -387,11 +387,12 @@ export const customersGrid = [
     width: '100',
     textAlign: 'Center',
   },
-  {
+  { field: 'joined_at',
     headerText: 'Üyelik başlangıcı',
     width: '150',
     type:'date',
-    editType:"datetimepickeredit",
+    format:'d/M/y',
+    allowEditing: false,
     textAlign: 'Center' },
 
   { field: 'total_expenditure',
@@ -411,7 +412,8 @@ export const employeesGrid = [
     headerText: 'Ise baslama tarihi',
     width: '135',
     type:'date',
-    editType:"datepickeredit",
+    format:'d/M/y',
+    allowEditing: false,
     textAlign: 'Center' },
 ];
 

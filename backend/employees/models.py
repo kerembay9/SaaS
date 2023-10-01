@@ -4,4 +4,4 @@ from django.db import models
 
 class Employee(models.Model):
     name = models.CharField(blank=False, max_length=255)
-    joined_at = models.DateTimeField(auto_now_add=True)
+    joined_at = models.DateField(auto_now_add=True)
