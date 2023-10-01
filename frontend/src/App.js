@@ -3,7 +3,7 @@
  import {FiSettings} from 'react-icons/fi';
  import { TooltipComponent } from '@syncfusion/ej2-react-popups';
  import { Navbar, Sidebar, ThemeSettings} from './components';
- import { Ecommerce, Calendar, Employees, Customers, Kanban, ColorPicker, Editor} from './pages';
+ import { Ecommerce, Calendar, Employees, Customers, Kanban, ColorPicker, Editor, Login} from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
  
@@ -45,6 +45,7 @@ function App() {
 <div>
     { themeSettings &&  <ThemeSettings /> }
     <Routes>
+        <Route path='/login' element={<Login/>} />
          {/* Dashboard  */}
         <Route path='/' element={<Ecommerce/>} />
         <Route path='/eCommerce' element={<Ecommerce/>}/>
