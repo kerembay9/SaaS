@@ -419,17 +419,18 @@ export const employeesGrid = [
 
 export const links = [
   {
-    title: 'Dashboard',
+    title: 'Yönetim Paneli',
     links: [
       {
         name: 'ecommerce',
+        verbose: 'Detaylar',
         icon: <FiShoppingBag />,
       },
     ],
   },
 
   {
-    title: 'Pages',
+    title: 'Sayfalar',
     links: [
       // {
       //   name: 'orders',
@@ -437,27 +438,32 @@ export const links = [
       // },
       {
         name: 'employees',
+        verbose: 'Çalışanlar',
         icon: <IoMdContacts />,
       },
       {
         name: 'customers',
+        verbose: 'Müşteriler',
         icon: <RiContactsLine />,
       },
     ],
   },
   {
-    title: 'Apps',
+    title: 'Uygulamalar',
     links: [
       {
         name: 'calendar',
+        verbose: 'Takvim',
         icon: <AiOutlineCalendar />,
       },
       {
         name: 'kanban',
+        verbose: 'Yapılacaklar',
         icon: <BsKanban />,
       },
       {
         name: 'editor',
+        verbose: 'Forum',
         icon: <FiEdit />,
       },
       // {
