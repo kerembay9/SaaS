@@ -4,7 +4,7 @@ import { MdOutlineCancel } from 'react-icons/md';
 import{ TooltipComponent } from '@syncfusion/ej2-react-popups';
 import{ links } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-import logo from './../data/HM.jpeg';
+import logo from './../data/HiveLogo.jpeg';
 const Sidebar = () => {
   const { activeMenu, setActiveMenu, screenSize, currentColor } = useStateContext();
 
@@ -26,12 +26,12 @@ const Sidebar = () => {
       <img src={logo} alt="Company Logo" className="w-16 h-16 mr-2 rounded-full" />
       <span> Hive Mind </span>
       </Link>
-      <TooltipComponent content="Menu" position="BottomCenter">
-      {/* <button type='button' onClick={()=>setActiveMenu((prevActiveMenu) => !prevActiveMenu)} className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block  md:invisible  lg:visible">
+      {/* <TooltipComponent content="Menu" position="BottomCenter">
+      <button type='button' onClick={()=>setActiveMenu((prevActiveMenu) => !prevActiveMenu)} className="text-xl rounded-full p-3 hover:bg-light-gray mt-4 block  md:invisible  lg:visible">
       <MdOutlineCancel/>
-      </button>*/}
+      </button>
        
-      </TooltipComponent>
+      </TooltipComponent> */}
       </div>
       <div className='mt-10'>
         {links.map((item) => (

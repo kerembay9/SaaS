@@ -47,8 +47,8 @@ useEffect(()=>{
     <div className='flex items-center p-1 gap-2 cursor-pointer hover:bg-light-gray rounded-lg'
     onClick={()=> handleClick('userProfile')}>
     <p>
-      <span className='text-gray-400 text-14'>Hi, </span> {' '}
-      <span className='text-gray-400 font-bold ml-1 text-14'>Michael</span>
+      <span className='text-gray-400 text-14'>Merhaba, </span> {' '}
+      <span className='text-gray-400 font-bold ml-1 text-14'>Alper</span>
     </p>
     <MdKeyboardArrowDown
     className=' text-gray-400 text-14 '/>

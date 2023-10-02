@@ -10,7 +10,8 @@ import './App.css';
 
 function App() {
     const {activeMenu, themeSettings, setThemeSettings, currentColor, currentMode} = useStateContext();
-   return (
+    const isLoggedIn = true;
+   return isLoggedIn ? 
     <div className={` ${ currentMode === 'Dark' ? 'dark': ''}`}>
         <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
@@ -45,7 +46,7 @@ function App() {
 <div>
     { themeSettings &&  <ThemeSettings /> }
     <Routes>
-        <Route path='/login' element={<Login/>} />
+
          {/* Dashboard  */}
         <Route path='/' element={<Ecommerce/>} />
         <Route path='/eCommerce' element={<Ecommerce/>}/>
@@ -66,9 +67,8 @@ function App() {
         </div>
         </div>
         </BrowserRouter>
-    </div>
-    )
- }
+    </div> 
+    :<Login/>}
  
  
  export default App
