@@ -19,6 +19,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('auth/', include('djoser.urls')),
+    path('auth/', include('djoser.urls.authtoken')),
     path('customers/', include('customers.urls')),
     path('employees/', include('employees.urls')),
     path('calendar/', include('calendarevents.urls')),

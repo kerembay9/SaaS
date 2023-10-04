@@ -1,10 +1,29 @@
-import React from "react";
+import React, {useState} from "react";
 import Logo from "../data/HiveLogoTP.png"
 import ScreenShot from "../data/Ekran.png"
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Login = () => {
   const {isLoggedIn,setIsLoggedIn} = useStateContext();
+  const [username, setUsername] = useState("");
+  const [password, setPassword] = useState("");
+  const handleLogin = () => {
+        const apiUrl = "http://127.0.0.1:8000/auth/token/login/"
+        fetch(apiUrl,{
+            method: "POST",
+            body:   new URLSearchParams({
+                "username": `${username}`,
+                "password": `${password}`,
+              })})
+        .then(response => response.json())
+        .then((response) => console.log(response))
+  };
+  const handleUsernameChange = (event) => {
+    setUsername(event.target.value);
+  };
+  const handlePasswordChange = (event) => {
+    setPassword(event.target.value);
+  };
   return (
     <section className=" flex items-center justify-center w-full h-full "
     style={{
@@ -50,21 +69,22 @@ const Login = () => {
                         Hive Mind v1.0<sup>©</sup> Yönetim Paneli'ne Hoşgeldiniz!
                       </h4>
                     </div>
-                    <form>
-                      <div className="flex-col ">
-                          <input
+                    <form>     
+                    <div className="flex-col ">                 
+                      <input
                             type="text"
-                            label="Username"
+                            value={username}
                             className="mb-10 rounded-lg w-full py-1"
-                            placeholder="    Kullanıcı adı"
-                          ></input>
-                          <input
+                            onChange={handleUsernameChange}
+                            placeholder={"Kullanıcı Adı "}
+                        />
+                        <input
                             type="password"
-                            label="Password"
                             className="mb-10 rounded-lg w-full py-1"
-                            placeholder="    Şifre"
-
-                          ></input>
+                            value={password}
+                            onChange={handlePasswordChange}
+                            placeholder={"Şifre"}
+                        />
                       </div>
  
                       <div className="mb-12 pb-1 pt-1 text-center">
@@ -76,8 +96,7 @@ const Login = () => {
                                  "linear-gradient(to right, #110935, #231169, #341A9E, #231169, #110935 )",
                             }}
                             onClick={()=> {
-                                setIsLoggedIn(true);
-                                console.log(isLoggedIn)
+                                handleLogin();
                             }}
                           >
                             Giriş
