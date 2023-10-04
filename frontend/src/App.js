@@ -9,8 +9,7 @@ import './App.css';
  
 
 function App() {
-    const {activeMenu, themeSettings, setThemeSettings, currentColor, currentMode} = useStateContext();
-    const isLoggedIn = true;
+    const {activeMenu, themeSettings, setThemeSettings, currentColor, currentMode, isLoggedIn} = useStateContext();
    return isLoggedIn ? 
     <div className={` ${ currentMode === 'Dark' ? 'dark': ''}`}>
         <BrowserRouter>

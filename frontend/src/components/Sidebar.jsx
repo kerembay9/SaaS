@@ -4,7 +4,7 @@ import { MdOutlineCancel } from 'react-icons/md';
 import{ TooltipComponent } from '@syncfusion/ej2-react-popups';
 import{ links } from '../data/dummy';
 import { useStateContext } from '../contexts/ContextProvider';
-import logo from './../data/HiveLogo.jpeg';
+import logo from './../data/HiveLogoTP.png';
 const Sidebar = () => {
   const { activeMenu, setActiveMenu, screenSize, currentColor } = useStateContext();
 
