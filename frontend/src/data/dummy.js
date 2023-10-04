@@ -461,11 +461,11 @@ export const links = [
         verbose: 'Yapılacaklar',
         icon: <BsKanban />,
       },
-      {
-        name: 'editor',
-        verbose: 'Forum',
-        icon: <FiEdit />,
-      },
+      // {
+      //   name: 'editor',
+      //   verbose: 'Forum',
+      //   icon: <FiEdit />,
+      // },
       // {
       //   name: 'color-picker',
       //   icon: <BiColorFill />,
