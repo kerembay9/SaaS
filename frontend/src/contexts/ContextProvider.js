@@ -11,7 +11,7 @@ const initialState = {
 export const ContextProvider = ({ children}) =>{
     const [activeMenu, setActiveMenu] = useState(true);
 
-    const [isLoggedin, setIsLoggedIn] = useState(false);
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
 
     const [isClicked, setisClicked] = useState(initialState);
 
@@ -53,7 +53,7 @@ export const ContextProvider = ({ children}) =>{
         setThemeSettings,
         setMode,
         setColor,
-        isLoggedin,
+        isLoggedIn,
         setIsLoggedIn,
     }}
     >
