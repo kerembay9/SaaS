@@ -14,17 +14,6 @@ function App() {
     <div className={` ${ currentMode === 'Dark' ? 'dark': ''}`}>
         <BrowserRouter>
         <div className="flex relative dark:bg-main-dark-bg">
-            <div className="fixed right-4 bottom-4" style={{zIndex:'1000'}}>
-                {/* <TooltipComponent content="Settings" position="Top">
-                    <button type="button"
-                    className="text-3xl p-3 hover:drop-shadow-xl hover:bg-light-gray text-white "
-                    onClick={() => setThemeSettings(true)}
-                    style={{background: currentColor,
-                    borderRadius: '50%'}}>
-                        <FiSettings />
-                    </button>
-                </TooltipComponent> */}
-            </div>
             {activeMenu ? (
                 <div className="w-72 fixed sidebar dark:bg-secondary-dark-bg bg-white"> 
                     <Sidebar />

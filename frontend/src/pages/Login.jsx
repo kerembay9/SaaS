@@ -4,7 +4,7 @@ import ScreenShot from "../data/Ekran.png"
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Login = () => {
-  const {setIsLoggedIn} = useStateContext();
+  const {setIsLoggedIn,setAuthToken} = useStateContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
@@ -15,18 +15,14 @@ const Login = () => {
                 "username": `${username}`,
                 "password": `${password}`,
               })})
-              .then((response) => {
-                if (response.ok) {
-                   response.json();
-                } else {
-                  alert("Login failed. Please check your credentials.");
-                }
-              })
+              .then((response) => response.json())
               .then((data) => {
-                // Check if the response contains an auth_token
+                console.log('data is',data)
                 if (data.auth_token) {
                   // Auth token is present, set isLoggedIn to true or perform any other necessary actions
+                  
                   setIsLoggedIn(true);
+                  setAuthToken(data.auth_token);
                 } else {
                   // Auth token is not present, display an error message to the user
                   alert("Authentication failed. Please try again.");

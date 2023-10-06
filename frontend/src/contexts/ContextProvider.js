@@ -58,7 +58,7 @@ export const ContextProvider = ({ children}) =>{
         isLoggedIn,
         setIsLoggedIn,
         authToken,
-        setAuthToken
+        setAuthToken,
     }}
     >
          {children}
