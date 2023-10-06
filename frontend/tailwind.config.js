@@ -11,10 +11,10 @@ module.exports = {
         14: '14px',
       },
       backgroundColor: {
-        'main-bg': '#FAFBFB',
-        'main-dark-bg': '#20232A',
-        'secondary-dark-bg': '#33373E',
-        'light-gray': '#F7F7F7',
+        'main-bg': '#1C0F57',//'#FAFBFB',  
+        'main-dark-bg': '#110935',//'#20232A',
+        'secondary-dark-bg': '#27157A',//'#33373E',
+        'light-gray': '#331B9D',//'#F7F7F7',
         'half-transparent': 'rgba(0, 0, 0, 0.5)',
       },
       borderWidth: {

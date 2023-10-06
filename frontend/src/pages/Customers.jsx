@@ -123,7 +123,7 @@ const Customers = () => {
       dataSource={customersData}
       allowPaging
       allowSorting
-      toolbar={['Edit', 'Delete', 'Update', 'Cancel','Search']}
+      toolbar={['Add','Edit', 'Delete', 'Update', 'Cancel','Search']}
       editSettings={{allowDeleting:true, allowEditing:true, allowAdding: true}}
       width="auto"
       actionBegin={handleActionBegin}

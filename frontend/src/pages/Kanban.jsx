@@ -14,7 +14,11 @@ const Kanban = () => {
     fetch(apiUrl)
       .then((response) => response.json())
       .then((data) => {
-        setKanbanData(data); // Update the state with the fetched data
+        const renamedData = data.map(item => {
+          const { id, ...rest } = item; // Destructure the id property and capture the rest
+          return { Id: `Görev ${id}`,id: id, ...rest }; // Rename the id property to Id and combine with the rest
+        });
+        setKanbanData(renamedData); // Update the state with the fetched data
         console.log(data)
       })
       .catch((error) => {
@@ -23,9 +27,35 @@ const Kanban = () => {
   }, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
-  const handleActionBegin = (event) => {
-    // Log the event type to the console
-    console.log('Event Type:', event.requestType);
+  const handleActionBegin = (args) => {
+    switch(args.requestType){
+      case 'cardChange':
+        console.log(args.data.id)
+        const apiUrl = `http://127.0.0.1:8000/kanban/${args.data.id}/`;
+            fetch(apiUrl,{
+              method: 'PUT',
+              headers: {
+                'Content-Type' : 'application/json',
+              },
+              body: JSON.stringify(args.data)
+            })
+              .then((response) => response.json())
+              .then((data) => {
+                if ('id' in data) {
+                  const renamedData = data.map(item => {
+                    return { Id: `Görev ${item.id}`, ...item }; // Rename the id property to Id and combine with the rest
+                  });
+                  setKanbanData(renamedData); 
+              }
+            })
+              .catch((error) => {
+                console.error('Error fetching data:', error); 
+              });
+        break;
+      default:
+        break;
+    }
+    console.log('Event Type:', args.requestType);
   };
   const handleAddCard = (card) => {
     // Handle adding the card to your data source (e.g., kanbanData)
