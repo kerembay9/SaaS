@@ -1,8 +1,6 @@
 import React, { useEffect} from 'react';
 import {AiOutlineMenu } from 'react-icons/ai';
-import { MdKeyboardArrowDown } from 'react-icons/md';
 import { TooltipComponent } from '@syncfusion/ej2-react-popups';
-import avatar from '../data/avatar.jpg';
 import { useStateContext } from '../contexts/ContextProvider';
 
 
@@ -17,7 +15,7 @@ const NavButton = ({title, customFunc, icon, color, dotColor}) => (
 )
 
 const Navbar = () => {
-  const {activeMenu, setActiveMenu, handleClick,screenSize, setScreenSize, currentColor} = useStateContext();
+  const {activeMenu, setActiveMenu, handleClick,screenSize, setScreenSize, currentColor, user} = useStateContext();
 
   useEffect(()=>{
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -48,14 +46,8 @@ useEffect(()=>{
     onClick={()=> handleClick('userProfile')}>
     <p>
       <span className='text-gray-400 text-14'>Merhaba, </span> {' '}
-      <span className='text-gray-400 font-bold ml-1 text-14'>Alper</span>
+      <span className='text-gray-400 font-bold ml-1 text-14'>{user}</span>
     </p>
-    <MdKeyboardArrowDown
-    className=' text-gray-400 text-14 '/>
-    <img 
-    className='rounded-full w-8 h-8'
-    src={avatar} alt="" />
-
     </div>
     </TooltipComponent>
     </div>

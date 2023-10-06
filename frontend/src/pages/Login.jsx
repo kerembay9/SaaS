@@ -4,7 +4,7 @@ import ScreenShot from "../data/Ekran.png"
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Login = () => {
-  const {setIsLoggedIn,setAuthToken} = useStateContext();
+  const {setIsLoggedIn,setAuthToken,setUser} = useStateContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
@@ -23,6 +23,7 @@ const Login = () => {
                   
                   setIsLoggedIn(true);
                   setAuthToken(data.auth_token);
+                  handleUserInfo(data.auth_token);
                 } else {
                   // Auth token is not present, display an error message to the user
                   alert("Authentication failed. Please try again.");
@@ -32,6 +33,25 @@ const Login = () => {
                 console.error(error.message);
               });
   };
+  const handleUserInfo = (auth_token) => {
+    const apiUrl = "http://127.0.0.1:8000/auth/users/me/";
+    fetch(apiUrl,{
+        method: "GET",
+        headers: {
+            "Content-Type" : "application/json",
+            "Authorization" : `Token ${auth_token}`
+        }
+    })
+    .then((response) => response.json())
+    .then((data) => {
+        if (data.username) {
+            setUser(data.username)
+        }
+    })
+    .catch((error) => {
+        console.error(error.message);
+      })
+  }
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
