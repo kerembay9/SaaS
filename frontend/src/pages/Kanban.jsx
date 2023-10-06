@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import { KanbanComponent, ColumnsDirective, ColumnDirective } from '@syncfusion/ej2-react-kanban';
-import { kanbanDatas, kanbanGrid } from '../data/dummy';
+import {  kanbanGrid } from '../data/dummy';
 import { Header } from '../components';
 import AddCardModal from '../components/AddCardModal';
 const Kanban = () => {

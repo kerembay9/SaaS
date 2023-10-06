@@ -4,7 +4,7 @@ import ScreenShot from "../data/Ekran.png"
 import { useStateContext } from '../contexts/ContextProvider';
 
 const Login = () => {
-  const {isLoggedIn,setIsLoggedIn} = useStateContext();
+  const {setIsLoggedIn} = useStateContext();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const handleLogin = () => {
@@ -15,14 +15,37 @@ const Login = () => {
                 "username": `${username}`,
                 "password": `${password}`,
               })})
-        .then(response => response.json())
-        .then((response) => console.log(response))
+              .then((response) => {
+                if (response.ok) {
+                   response.json();
+                } else {
+                  alert("Login failed. Please check your credentials.");
+                }
+              })
+              .then((data) => {
+                // Check if the response contains an auth_token
+                if (data.auth_token) {
+                  // Auth token is present, set isLoggedIn to true or perform any other necessary actions
+                  setIsLoggedIn(true);
+                } else {
+                  // Auth token is not present, display an error message to the user
+                  alert("Authentication failed. Please try again.");
+                }
+              })
+              .catch((error) => {
+                console.error(error.message);
+              });
   };
   const handleUsernameChange = (event) => {
     setUsername(event.target.value);
   };
   const handlePasswordChange = (event) => {
     setPassword(event.target.value);
+  };
+  const handleKeyDown = (event) => {
+    if (event.key === 'Enter') {
+      handleLogin();
+    }
   };
   return (
     <section className=" flex items-center justify-center w-full h-full "
@@ -77,6 +100,7 @@ const Login = () => {
                             className="mb-10 rounded-lg w-full py-1"
                             onChange={handleUsernameChange}
                             placeholder={"Kullanıcı Adı "}
+                            onKeyDown={handleKeyDown}
                         />
                         <input
                             type="password"
@@ -84,6 +108,7 @@ const Login = () => {
                             value={password}
                             onChange={handlePasswordChange}
                             placeholder={"Şifre"}
+                            onKeyDown={handleKeyDown}
                         />
                       </div>
  

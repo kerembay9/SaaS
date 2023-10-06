@@ -1,15 +1,15 @@
  import React from 'react'; 
  import {BrowserRouter, Routes, Route} from 'react-router-dom';
- import {FiSettings} from 'react-icons/fi';
- import { TooltipComponent } from '@syncfusion/ej2-react-popups';
- import { Navbar, Sidebar, ThemeSettings} from './components';
- import { Ecommerce, Calendar, Employees, Customers, Kanban, ColorPicker, Editor, Login} from './pages';
+//  import {FiSettings} from 'react-icons/fi';
+//  import { TooltipComponent } from '@syncfusion/ej2-react-popups';
+ import { Navbar, Sidebar} from './components'; // ThemeSettings
+ import { Ecommerce, Calendar, Employees, Customers, Kanban, Editor, Login} from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
  
 
 function App() {
-    const {activeMenu, themeSettings, setThemeSettings, currentColor, currentMode, isLoggedIn} = useStateContext();
+    const {activeMenu, currentMode, isLoggedIn} = useStateContext();
    return isLoggedIn ? 
     <div className={` ${ currentMode === 'Dark' ? 'dark': ''}`}>
         <BrowserRouter>
@@ -43,7 +43,7 @@ function App() {
                     <Navbar />
                     </div>
 <div>
-    { themeSettings &&  <ThemeSettings /> }
+    {/* { themeSettings &&  <ThemeSettings /> } */}
     <Routes>
 
          {/* Dashboard  */}

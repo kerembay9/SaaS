@@ -1,11 +1,11 @@
 import React from 'react';
 import { AiOutlineCalendar} from 'react-icons/ai';
-import { FiShoppingBag, FiEdit, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
+import { FiShoppingBag, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
 import { BsKanban, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine } from 'react-icons/ri';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
-import { HiOutlineRefresh } from 'react-icons/hi';
+// import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
 import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
@@ -57,11 +57,11 @@ export const kanbanGrid = [
     keyField: 'Close',
     allowToggle: true },
 ];
-const gridDate = (props) => (
-  <div className="flex items-center justify-center gap-2">
-    <span>{props.joined_at.substring(0, props.joined_at.indexOf('T'))}</span>
-  </div>
-);
+// const gridDate = (props) => (
+//   <div className="flex items-center justify-center gap-2">
+//     <span>{props.joined_at.substring(0, props.joined_at.indexOf('T'))}</span>
+//   </div>
+// );
 export const EditorData = () => (
   <div>
     <h3>

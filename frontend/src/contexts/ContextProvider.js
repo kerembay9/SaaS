@@ -23,6 +23,8 @@ export const ContextProvider = ({ children}) =>{
 
     const [themeSettings, setThemeSettings] = useState(false);
 
+    const [authToken, setAuthToken] = useState(null)
+
     const setMode = (e) => {
         setCurrentMode(e.target.value);
         localStorage.setItem('themeMode', e.target.value)
@@ -55,6 +57,8 @@ export const ContextProvider = ({ children}) =>{
         setColor,
         isLoggedIn,
         setIsLoggedIn,
+        authToken,
+        setAuthToken
     }}
     >
          {children}
