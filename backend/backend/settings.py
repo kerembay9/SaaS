@@ -45,6 +45,7 @@ INSTALLED_APPS = [
     'employees',
     'calendarevents',
     'kanban',
+    'Accounting',
 ]
 
 MIDDLEWARE = [

@@ -6,6 +6,7 @@
  import { Ecommerce, Calendar, Employees, Customers, Kanban, Editor, Login} from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
+import Accounting from './pages/Accounting';
  
 
 function App() {
@@ -46,6 +47,8 @@ function App() {
         <Route path='/kanban' element={<Kanban/>}/>
         <Route path='/editor' element={<Editor/>}/>
         <Route path='/calendar' element={<Calendar/>}/>
+        <Route path='/accounting' element={<Accounting/>}/>
+
          {/*  Charts  */}
         {/* <Route path='/line' element={<Line/>}/>
         <Route path='/area' element={<Area/>}/> */}

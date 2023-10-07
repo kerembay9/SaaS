@@ -24,6 +24,7 @@ urlpatterns = [
     path('employees/', include('employees.urls')),
     path('calendar/', include('calendarevents.urls')),
     path('kanban/', include('kanban.urls')),
+    path('accounting/', include('Accounting.urls')),
     path('', admin.site.urls),
 
 ]

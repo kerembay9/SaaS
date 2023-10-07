@@ -40,20 +40,20 @@ export const gridOrderStatus = (props) => (
 );
 
 export const kanbanGrid = [
-  { headerText: 'To Do',
+  { headerText: 'Açıldı',
     keyField: 'Open',
     allowToggle: true },
 
-  { headerText: 'In Progress',
+  { headerText: 'Yürütülüyor',
     keyField: 'InProgress',
     allowToggle: true },
 
-  { headerText: 'Testing',
+  { headerText: 'Test Aşaması',
     keyField: 'Testing',
     allowToggle: true,
     isExpanded: false },
 
-  { headerText: 'Done',
+  { headerText: 'Tamamlandı',
     keyField: 'Close',
     allowToggle: true },
 ];
@@ -416,6 +416,28 @@ export const employeesGrid = [
     allowEditing: false,
     textAlign: 'Center' },
 ];
+export const accountingGrid = [
+  { type: 'checkbox', width: '50' },
+  { field: 'name',
+    headerText: 'Ürün',
+    width: '150',
+    textAlign: 'Center',
+  },
+  { field: 'price',
+  headerText: 'Fiyat',
+  width: '150',
+  format: 'C2',
+  textAlign: 'Center',
+  editType: 'numericedit',
+  },
+  { field: 'joined_at',
+    headerText: 'Satış tarihi',
+    width: '135',
+    type:'date',
+    format:'d/M/y',
+    allowEditing: false,
+    textAlign: 'Center' },
+];
 
 export const links = [
   {
@@ -446,6 +468,11 @@ export const links = [
         verbose: 'Müşteriler',
         icon: <RiContactsLine />,
       },
+      {
+        name: 'accounting',
+        verbose: 'Ön Muhasebe',
+        icon: <RiContactsLine />,
+      },
     ],
   },
   {
@@ -458,7 +485,7 @@ export const links = [
       },
       {
         name: 'kanban',
-        verbose: 'Yapılacaklar',
+        verbose: 'İş Akışı',
         icon: <BsKanban />,
       },
       // {

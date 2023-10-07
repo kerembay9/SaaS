@@ -4,70 +4,81 @@ import {  kanbanGrid } from '../data/dummy';
 import { Header } from '../components';
 import AddCardModal from '../components/AddCardModal';
 const Kanban = () => {
-// Set the culture to Turkish
   const [kanbanData, setKanbanData] = useState([]);
-
+  const fetchKanbanData  =  () => {
+        const apiUrl = 'http://127.0.0.1:8000/kanban/';
+        fetch(apiUrl)
+          .then((response) => response.json())
+          .then((data) => {
+            const renamedData = data.map(item => {
+              const { id, ...rest } = item;
+              return { Id: `Görev ${id}`,id: id, ...rest };
+            });
+            setKanbanData(renamedData);
+            console.log(data)
+          })
+          .catch((error) => {
+            console.error('Error fetching data:', error);
+          });
+  }
   useEffect(() => {
-    // Define the API endpoint
-    const apiUrl = 'http://127.0.0.1:8000/kanban/'; // Replace with your actual API endpoint
-    // Fetch data from the API
-    fetch(apiUrl)
-      .then((response) => response.json())
-      .then((data) => {
-        const renamedData = data.map(item => {
-          const { id, ...rest } = item; // Destructure the id property and capture the rest
-          return { Id: `Görev ${id}`,id: id, ...rest }; // Rename the id property to Id and combine with the rest
-        });
-        setKanbanData(renamedData); // Update the state with the fetched data
-        console.log(data)
-      })
-      .catch((error) => {
-        console.error('Error fetching data:', error);
-      });
+      fetchKanbanData();
   }, []);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
   const handleActionBegin = (args) => {
     switch(args.requestType){
       case 'cardChange':
-        console.log(args.data.id)
-        const apiUrl = `http://127.0.0.1:8000/kanban/${args.data.id}/`;
+        const apiUrl = `http://127.0.0.1:8000/kanban/${args.changedRecords[0].id}/`;
             fetch(apiUrl,{
               method: 'PUT',
               headers: {
                 'Content-Type' : 'application/json',
               },
-              body: JSON.stringify(args.data)
+              body: JSON.stringify(args.changedRecords[0])
             })
               .then((response) => response.json())
               .then((data) => {
+                console.log(data)
                 if ('id' in data) {
-                  const renamedData = data.map(item => {
-                    return { Id: `Görev ${item.id}`, ...item }; // Rename the id property to Id and combine with the rest
-                  });
+                  const renamedData =  { Id: `Görev ${data.id}`, ...data };
                   setKanbanData(renamedData); 
+                  fetchKanbanData();
               }
             })
               .catch((error) => {
                 console.error('Error fetching data:', error); 
               });
         break;
+      case 'cardRemove':
+        fetch(`http://127.0.0.1:8000/kanban/${args.deletedRecords[0].id}/`, {
+          method: 'DELETE',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify(args.deletedRecords[0])
+        })
+          .then((response) => {
+            if (!response.ok) {
+              throw new Error(`Failed to delete event: ${response.statusText}`);
+            }
+          })
+          .catch((error) => {
+            console.error('Error deleting customer:', error);
+          });
+        break;
       default:
         break;
     }
     console.log('Event Type:', args.requestType);
   };
-  const handleAddCard = (card) => {
-    // Handle adding the card to your data source (e.g., kanbanData)
-    // ...
-    setIsModalOpen(true);
-  };
+
   return (
     <div>
     <div className=' m-22 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl'>
       <Header
-      category="App"
-      title="Kanban"
+      category="Uygulamalar"
+      title="İş Akışı"
       />
       <div className='flex flex-row-reverse space-x-2'> 
       <button
@@ -95,7 +106,7 @@ const Kanban = () => {
       <AddCardModal
         isOpen={isModalOpen}
         onClose={() => setIsModalOpen(false)}
-        onAddCard={handleAddCard}
+        refetch = {() => fetchKanbanData()}
       />
     </div>
   )
