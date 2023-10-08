@@ -15,7 +15,7 @@ const NavButton = ({title, customFunc, icon, color, dotColor}) => (
 )
 
 const Navbar = () => {
-  const {activeMenu, setActiveMenu, handleClick,screenSize, setScreenSize, currentColor, user} = useStateContext();
+  const {activeMenu, setActiveMenu, setIsLoggedIn,screenSize, setScreenSize, currentColor, user} = useStateContext();
 
   useEffect(()=>{
     const handleResize = () => setScreenSize(window.innerWidth);
@@ -40,14 +40,14 @@ useEffect(()=>{
     
     <div className='flex '>
     <TooltipComponent
-    content="Profile"
+
     position="BottomCenter">
-    <div className='flex items-center p-1 gap-2 cursor-pointer hover:bg-light-gray rounded-lg'
-    onClick={()=> handleClick('userProfile')}>
+    <div className='flex items-center p-1 gap-2 rounded-lg'>
     <p>
-      <span className='text-gray-400 text-14'>Merhaba, </span> {' '}
-      <span className='text-gray-400 font-bold ml-1 text-14'>{user}</span>
+      <span className='text-gray-200 text-14'>Merhaba, </span> {' '}
+      <span className='text-gray-200 font-bold ml-1 text-14'>{user}</span>
     </p>
+    <button className='text-gray-200 font-bold ml-1 text-14 cursor-pointer'onClick={()=> setIsLoggedIn(false)}>Çıkış</button>
     </div>
     </TooltipComponent>
     </div>
