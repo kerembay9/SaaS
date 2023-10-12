@@ -1,8 +1,6 @@
  import React from 'react'; 
  import {BrowserRouter, Routes, Route} from 'react-router-dom';
-//  import {FiSettings} from 'react-icons/fi';
-//  import { TooltipComponent } from '@syncfusion/ej2-react-popups';
- import { Navbar, Sidebar} from './components'; // ThemeSettings
+ import { Navbar, Sidebar} from './components';
  import { Ecommerce, Calendar, Employees, Customers, Kanban, Editor, Login} from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
