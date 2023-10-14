@@ -5,6 +5,7 @@ import { BsKanban, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'rea
 import { IoMdContacts } from 'react-icons/io';
 import { RiContactsLine } from 'react-icons/ri';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
+import { Link } from 'react-router-dom';
 // import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
 import avatar from './avatar.jpg';
@@ -374,14 +375,23 @@ export const LinePrimaryYAxis = {
   majorTickLines: { width: 0 },
   minorTickLines: { width: 0 },
 };
-
+export const customerTemplate = (props) => {
+  const customer = props;
+  return (
+  <div>  
+      <Link to={`/${customer.id}`}>{customer.name}</Link>
+  </div>
+  );
+};
 export const customersGrid = [
   { type: 'checkbox', width: '50' },
   
   { field: 'name',
     headerText: 'İsim',
     width: '120',
-    textAlign: 'Center' },
+    textAlign: 'Center',
+    template: customerTemplate 
+},
   { field: 'membership',
     headerText: 'Üyelik Türü',
     width: '100',
@@ -400,7 +410,6 @@ export const customersGrid = [
     width: '100',
     textAlign: 'Center' },
 ];
-
 export const employeesGrid = [
   { type: 'checkbox', width: '50' },
   { field: 'name',

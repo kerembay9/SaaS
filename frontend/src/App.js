@@ -1,7 +1,7 @@
  import React from 'react'; 
  import {BrowserRouter, Routes, Route} from 'react-router-dom';
  import { Navbar, Sidebar} from './components';
- import { Ecommerce, Calendar, Employees, Customers, Kanban, Editor, Login} from './pages';
+ import { Ecommerce, Calendar, Employees, Customers, Kanban, Editor, Login, CustomerDetail} from './pages';
 import { useStateContext } from './contexts/ContextProvider';
 import './App.css';
 import Accounting from './pages/Accounting';
@@ -41,6 +41,7 @@ function App() {
         {/* <Route path='/orders' element={<Orders/>}/> */}
         <Route path='/employees' element={<Employees/>}/>
         <Route path='/customers' element={<Customers/>}/>
+        <Route path="/:id" element={<CustomerDetail/>} />
          {/*  Apps  */}
         <Route path='/kanban' element={<Kanban/>}/>
         <Route path='/editor' element={<Editor/>}/>

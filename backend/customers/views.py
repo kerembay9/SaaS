@@ -1,7 +1,7 @@
-from rest_framework import generics, status
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
-from .models import Customer
-from .serializers import CustomerSerializer
+from .models import ClickingInstance, Customer
+from .serializers import ClickingInstanceCreateSerializer, ClickingInstanceSerializer, CustomerSerializer
 from rest_framework.decorators import api_view
 
 class CustomerListCreateView(generics.ListCreateAPIView):
@@ -11,6 +11,7 @@ class CustomerListCreateView(generics.ListCreateAPIView):
 class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
+
 
 @api_view(['POST'])
 def bulk_delete_customers(request):
@@ -23,3 +24,24 @@ def bulk_delete_customers(request):
     deleted_count = Customer.objects.filter(id__in=customer_ids).delete()
     
     return Response({'message': f'{deleted_count[0]} customers deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
+
+class ClickingInstanceViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        customer_id = self.kwargs['pk']
+        return ClickingInstance.objects.filter(customer=customer_id)    
+    serializer_class = ClickingInstanceSerializer
+
+    def create(self, request, *args, **kwargs):
+        # Ensure that the customer is associated with the clicking instance.
+        customer_id = request.data.get('customer', None)
+        if not customer_id:
+            return Response({'customer': ['This field is required.']}, status=status.HTTP_400_BAD_REQUEST)
+        
+        customer = Customer.objects.get(pk=customer_id)
+        serializer = ClickingInstanceCreateSerializer(data=request.data)
+
+        if serializer.is_valid():
+            clicking_instance = serializer.save(customer=customer)
+            return Response(ClickingInstanceSerializer(clicking_instance).data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
