@@ -25,9 +25,9 @@ def bulk_delete_customers(request):
     
     return Response({'message': f'{deleted_count[0]} customers deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
-class ClickingInstanceViewSet(viewsets.ModelViewSet):
+class ClickingInstanceListCreateViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
-        customer_id = self.kwargs['pk']
+        customer_id = self.kwargs['customerpk']
         return ClickingInstance.objects.filter(customer=customer_id)    
     serializer_class = ClickingInstanceSerializer
 
@@ -44,4 +44,19 @@ class ClickingInstanceViewSet(viewsets.ModelViewSet):
             clicking_instance = serializer.save(customer=customer)
             return Response(ClickingInstanceSerializer(clicking_instance).data, status=status.HTTP_201_CREATED)
 
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class ClickingInstanceDetailUpdateViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        customer_id = self.kwargs['customerpk']
+        click_instance_id = self.kwargs['pk']
+        return ClickingInstance.objects.filter(customer=customer_id, pk=click_instance_id)    
+    serializer_class = ClickingInstanceSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = ClickingInstanceSerializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
+            return Response(serializer.data)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

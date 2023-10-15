@@ -6,32 +6,59 @@ import ImageMarker from 'react-image-marker';
  
 
 const CustomerDetail = () => {
-  const [selectedValue, setSelectedValue] = useState('');
-  const handleSelectChange = (event) => {
-    console.log(event)
-    setSelectedValue(event.target.value);
-  };
+  const handleSelectChange = (event, click_inst_id) => {
+    if (event.target.value === 'del') {
+      // id and click instance id are different solve it and rest is easy
+      fetch(`http://127.0.0.1:8000/customers/${id}/click-instance/${click_inst_id}/`, {
+          method: 'DELETE',
+      })
+      .then((response) => {
+          if (response.ok) {
+            fetchClickData();
+          } else {
+              // Handle error.
+              return response.json()
+                  .then((data) => {
+                      console.error('Error:', data);
+                  });
+          }
+      })
+      .catch((error) => {
+          console.error('Fetch error:', error);
+      });
+  } else {
+    fetch(`http://127.0.0.1:8000/customers/${id}/click-instance/${click_inst_id}/`, {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ pain_level: event.target.value }),
+    })
+    .then((response) => {
+        if (response.ok) {
+          fetchClickData();
+        } else {
+            return response.json()
+                .then((data) => {
+                    console.error('Error:', data);
+                });
+        }
+    })
+    .catch((error) => {
+        console.error('Fetch error:', error);
+    });
+  };};
+
   const CustomMarker = (props) => {
     return (
       <div style={{ display: "flex" }}>
         <div class="w-5 h-5 rounded-full bg-red-900 flex items-center justify-center pl-2 pb-1">
           <select
-            value={selectedValue}
-            className="absolute top-0 left-0 appearance-none border-none bg-transparent w-full h-full"
+            value={props.pain_level}
+            className="absolute top-0 left-0 appearance-none border-none bg-transparent w-full h-full pl-1.5"
             onChange={(e) => {
-              handleSelectChange(e);
-              setMarkers(
-                  markers.map((each) => {
-                    console.log("each", each);
-                    console.log("props", props);
-                    if (each.top === props.top && each.left === props.left) {
-                      return { ...each, textMark: e.target.value };
-                    } else {
-                      return each;
-                    }
-                    
-                  })
-                );
+              handleSelectChange(e, props.id);
+              
                 // setSelectedValue(e.target.value);
               }}
             >
@@ -40,6 +67,8 @@ const CustomerDetail = () => {
               <option value="3">3</option>
               <option value="4">4</option>
               <option value="5">5</option>
+              <option value="del">sil</option>
+
             </select>
             </div>
            {/* props.pain_level */}

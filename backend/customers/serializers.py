@@ -10,7 +10,7 @@ class ClickingInstanceSerializer(serializers.ModelSerializer):
 class ClickingInstanceCreateSerializer(serializers.ModelSerializer):
     class Meta:
         model = ClickingInstance
-        fields = ('x', 'y')
+        fields = '__all__'
 
 class CustomerSerializer(serializers.ModelSerializer):
     clicking_instances = ClickingInstanceSerializer(many=True, read_only=True)

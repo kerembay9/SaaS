@@ -11,4 +11,5 @@ class ClickingInstance(models.Model):
     customer = models.ForeignKey(Customer, on_delete=models.CASCADE)
     x = models.DecimalField(max_digits=20, decimal_places=16)
     y = models.DecimalField(max_digits=20, decimal_places=16)
+    pain_level= models.IntegerField(default=1)
     timestamp = models.DateTimeField(auto_now_add=True)
