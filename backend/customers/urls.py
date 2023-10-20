@@ -1,9 +1,13 @@
 from django.urls import path
-from . import views
+from .views import CustomerListCreateView, CustomerDetailView, bulk_delete_customers, ClickingInstanceDetailUpdateViewSet, ClickingInstanceListCreateViewSet
 
 urlpatterns = [
-    path('', views.CustomerListCreateAPIView.as_view(),name="customer-list"),
-    path('<int:pk>/update/', views.CustomerUpdateAPIView.as_view(), name="customer-edit"),
-    path('<int:pk>/delete/', views.CustomerDestroyAPIView.as_view()),
-    path('<int:pk>/', views.CustomerDetailAPIView.as_view(), name="customer-detail"),
+    path('', CustomerListCreateView.as_view(), name='customer-list-create'),
+    path('<int:pk>/', CustomerDetailView.as_view(), name='customer-detail'),
+    path('bulk-delete-customers/', bulk_delete_customers, name='bulk-delete-customers'),
+    path('click-instance/', ClickingInstanceListCreateViewSet.as_view({'post': 'create', 'get': 'list'}), name='click-instance'),
+    path('<int:customerpk>/click-instance/<int:pk>/', ClickingInstanceDetailUpdateViewSet.as_view({'get': 'list','delete': 'destroy', 'put':'update'}), name='click-instance-detail'),
+    path('<int:customerpk>/click-instance/', ClickingInstanceListCreateViewSet.as_view({'get': 'list'}), name='click-instance'),
+
+
 ]

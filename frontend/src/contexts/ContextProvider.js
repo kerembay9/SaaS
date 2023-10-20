@@ -11,15 +11,21 @@ const initialState = {
 export const ContextProvider = ({ children}) =>{
     const [activeMenu, setActiveMenu] = useState(true);
 
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
     const [isClicked, setisClicked] = useState(initialState);
 
     const [screenSize, setScreenSize] = useState(undefined);
 
-    const [currentColor, setCurrentColor] = useState('#03C9D7');
+    const [currentColor, setCurrentColor] = useState('#FFCC00');
 
     const [currentMode, setCurrentMode] = useState('Dark');
 
     const [themeSettings, setThemeSettings] = useState(false);
+
+    const [authToken, setAuthToken] = useState(null)
+
+    const [user, setUser] = useState(null)
 
     const setMode = (e) => {
         setCurrentMode(e.target.value);
@@ -50,7 +56,13 @@ export const ContextProvider = ({ children}) =>{
         themeSettings,
         setThemeSettings,
         setMode,
-        setColor
+        setColor,
+        isLoggedIn,
+        setIsLoggedIn,
+        authToken,
+        setAuthToken,
+        user,
+        setUser,
     }}
     >
          {children}

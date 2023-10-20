@@ -17,8 +17,13 @@
     "react": "^17.0.2",
     "react-dom": "^17.0.2",
     "react-icons": "^4.3.1",
+    "react-image-marker": "^1.2.0",
     "react-router-dom": "^6.2.1",
-    "react-scripts": "5.0.0"
+    "react-scripts": "5.0.0",
+    "tw-elements": "^1.0.0",
+    "tw-elements-react": "^1.0.0-alpha1",
+    "zepto": "^1.2.0",
+    "zepto-browserify": "^1.1.6-1"
   },
   "scripts": {
     "start": "react-scripts start",

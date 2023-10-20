@@ -17,15 +17,15 @@ const Ecommerce = () => {
         dark:bg-secondary-dark-bg h-44 gap-10 w-96  p-8 pt-6 m-3 rounded-3xl `}>
           <div className='flex justify-between  items-center'>
             <div className="rounded-3xl p-1.5 w-full">
-            <p className='font-extrabold italic text-xl text-black dark:text-gray-200 pl-5 pr-5'>Earnings :</p>
-            <p className='text-2xl italic mt-2 pl-5 pr-5 text-black dark:text-gray-200 '>$1234,567.00</p>
+            <p className='font-extrabold italic text-xl text-black dark:text-gray-200 pl-5 pr-5'>Kazanç :</p>
+            <p className='text-2xl italic mt-2 pl-5 pr-5 text-black dark:text-gray-200 '>$753,200.00</p>
             </div>
           </div>
           <div className='mt-2 ml-6'>
               <Button
             color="white"
             bgColor={currentColor}
-            text="Download"
+            text="Belgeleri İndir"
             borderRadius="10px"
             size="md"/>
             </div>
@@ -63,14 +63,14 @@ const Ecommerce = () => {
             :{color: "black", borderColor: "black"}}
              className='border-1 dark:hero-pattern bg-white dark:text-gray-200 dark:bg-secondary-dark-bg m-3 p-4 rounded-2xl md:w-780'>
               <div className='flex justify-between'>
-                <p className='font-semibold text-xl'> Revenue Updates</p>
+                <p className='font-semibold text-xl'> Kazanç Detayları</p>
                 <div className=' flex items-center gap-4  mr-8 mt-3 p-3 pr-12 pl-10 rounded-xl'>
                   <p className='flex text-xl items-center gap-2 text-red-400 hover:drop-shadow-2xl'>
                   <span> <GoPrimitiveDot/></span>
-                  <span> Expense </span></p>
+                  <span> Harcama </span></p>
                   <p className='flex  text-xl items-center gap-2 text-green-400 hover:drop-shadow-2xl '>
                   <span> <GoPrimitiveDot/></span>
-                  <span> Budget </span></p>
+                  <span> Bütçe </span></p>
                 </div>
               </div>
               <div className='mt-10 flex gap-10 flex-wrap justify-center'>
@@ -84,7 +84,7 @@ const Ecommerce = () => {
                         25%
                       </span>
                     </p>
-                    <p className='text-gray-500'> Budget
+                    <p className='text-gray-500'> Bütçe
                     </p>
                   </div>
                   <div>
@@ -93,7 +93,7 @@ const Ecommerce = () => {
                         4.400$
                       </span>
                     </p>
-                    <p className='text-gray-500'> Expense
+                    <p className='text-gray-500'> Harcama
                     </p>
                   </div>
                   <div className='mt-5'>
@@ -111,7 +111,7 @@ const Ecommerce = () => {
                 <Button 
                 color="white"
                 bgColor={currentColor}
-                text="Download Report"
+                text="Raporu Kaydet"
                 borderRadius="10px"
                 />
               </div>

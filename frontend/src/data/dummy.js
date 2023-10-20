@@ -1,15 +1,13 @@
 import React from 'react';
-import { AiOutlineCalendar, AiOutlineShoppingCart, AiOutlineAreaChart, AiOutlineBarChart, AiOutlineStock } from 'react-icons/ai';
-import { FiShoppingBag, FiEdit, FiPieChart, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
-import { BsKanban, BsBarChart, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
-import { BiColorFill } from 'react-icons/bi';
+import { AiOutlineCalendar} from 'react-icons/ai';
+import { FiShoppingBag, FiBarChart, FiCreditCard, FiStar, FiShoppingCart } from 'react-icons/fi';
+import { BsKanban, BsBoxSeam, BsCurrencyDollar, BsShield, BsChatLeft } from 'react-icons/bs';
 import { IoMdContacts } from 'react-icons/io';
-import { RiContactsLine, RiStockLine } from 'react-icons/ri';
+import { RiContactsLine } from 'react-icons/ri';
 import { MdOutlineSupervisorAccount } from 'react-icons/md';
-import { HiOutlineRefresh } from 'react-icons/hi';
+import { Link } from 'react-router-dom';
+// import { HiOutlineRefresh } from 'react-icons/hi';
 import { TiTick } from 'react-icons/ti';
-import { GiLouvrePyramid } from 'react-icons/gi';
-import { GrLocation } from 'react-icons/gr';
 import avatar from './avatar.jpg';
 import avatar2 from './avatar2.jpg';
 import avatar3 from './avatar3.png';
@@ -21,7 +19,6 @@ import product4 from './product4.jpg';
 import product5 from './product5.jpg';
 import product6 from './product6.jpg';
 import product7 from './product7.jpg';
-import product8 from './product8.jpg';
 
 export const gridOrderImage = (props) => (
   <div>
@@ -44,40 +41,28 @@ export const gridOrderStatus = (props) => (
 );
 
 export const kanbanGrid = [
-  { headerText: 'To Do',
+  { headerText: 'Açıldı',
     keyField: 'Open',
     allowToggle: true },
 
-  { headerText: 'In Progress',
+  { headerText: 'Yürütülüyor',
     keyField: 'InProgress',
     allowToggle: true },
 
-  { headerText: 'Testing',
+  { headerText: 'Test Aşaması',
     keyField: 'Testing',
     allowToggle: true,
     isExpanded: false },
 
-  { headerText: 'Done',
+  { headerText: 'Tamamlandı',
     keyField: 'Close',
     allowToggle: true },
 ];
-const gridEmployeeProfile = (props) => (
-  <div className="flex items-center gap-2">
-    <img
-      className="rounded-full w-10 h-10"
-      src={props.EmployeeImage}
-      alt="employee"
-    />
-    <p>{props.Name}</p>
-  </div>
-);
-
-const gridEmployeeCountry = (props) => (
-  <div className="flex items-center justify-center gap-2">
-    <GrLocation />
-    <span>{props.Country}</span>
-  </div>
-);
+// const gridDate = (props) => (
+//   <div className="flex items-center justify-center gap-2">
+//     <span>{props.joined_at.substring(0, props.joined_at.indexOf('T'))}</span>
+//   </div>
+// );
 export const EditorData = () => (
   <div>
     <h3>
@@ -120,26 +105,26 @@ export const EditorData = () => (
     </h3>
   </div>
 );
-const customerGridImage = (props) => (
-  <div className="image flex gap-4">
-    <img
-      className="rounded-full w-10 h-10"
-      src={props.CustomerImage}
-      alt="employee"
-    />
-    <div>
-      <p>{props.CustomerName}</p>
-      <p>{props.CustomerEmail}</p>
-    </div>
-  </div>
-);
+// const customerGridImage = (props) => (
+//   <div className="image flex gap-4">
+//     <img
+//       className="rounded-full w-10 h-10"
+//       src={props.CustomerImage}
+//       alt="employee"
+//     />
+//     <div>
+//       <p>{props.CustomerName}</p>
+//       <p>{props.CustomerEmail}</p>
+//     </div>
+//   </div>
+// );
 
-const customerGridStatus = (props) => (
-  <div className="flex gap-2 justify-center items-center text-gray-700 capitalize">
-    <p style={{ background: props.StatusBg }} className="rounded-full h-3 w-3" />
-    <p>{props.surname}</p>
-  </div>
-);
+// const customerGridStatus = (props) => (
+//   <div className="flex gap-2 justify-center items-center text-gray-700 capitalize">
+//     <p style={{ background: props.StatusBg }} className="rounded-full h-3 w-3" />
+//     <p>{props.surname}</p>
+//   </div>
+// );
 export const areaPrimaryXAxis = {
   valueType: 'DateTime',
   labelFormat: 'y',
@@ -390,147 +375,152 @@ export const LinePrimaryYAxis = {
   majorTickLines: { width: 0 },
   minorTickLines: { width: 0 },
 };
-
+export const customerTemplate = (props) => {
+  const customer = props;
+  return (
+  <div>  
+      <Link to={`/${customer.id}`}>{customer.name}</Link>
+  </div>
+  );
+};
 export const customersGrid = [
   { type: 'checkbox', width: '50' },
-  { headerText: 'Name',
-    width: '150',
-    template: customerGridImage,
-    textAlign: 'Center' },
-  { field: 'surname',
-    headerText: 'Name',
-    width: '150',
-    textAlign: 'Center' },
-  { field: 'surname',
-    headerText: 'Status',
-    width: '130',
-    format: 'yMd',
-    textAlign: 'Center',
-    template: customerGridStatus },
-  {
-    field: 'Weeks',
-    headerText: 'Weeks',
-    width: '100',
-    format: 'C2',
-    textAlign: 'Center' },
-  { field: 'Budget',
-    headerText: 'Budget',
-    width: '100',
-    format: 'yMd',
-    textAlign: 'Center' },
-
-  { field: 'Location',
-    headerText: 'Location',
-    width: '150',
-    textAlign: 'Center' },
-
-  { field: 'CustomerID',
-    headerText: 'Customer ID',
-    width: '120',
-    textAlign: 'Center',
-    isPrimaryKey: true,
-  },
-
-];
-
-export const employeesGrid = [
-  { headerText: 'Employee',
-    width: '150',
-    template: gridEmployeeProfile,
-    textAlign: 'Center' },
+  
   { field: 'name',
-    headerText: '',
-    width: '0',
-    textAlign: 'Center',
-  },
-  { field: 'surname',
-    headerText: 'surname',
-    width: '170',
-    textAlign: 'Center',
-  },
-  { headerText: 'Country',
+    headerText: 'İsim',
     width: '120',
     textAlign: 'Center',
-    template: gridEmployeeCountry },
+    template: customerTemplate 
+},
+  { field: 'membership',
+    headerText: 'Üyelik Türü',
+    width: '100',
+    textAlign: 'Center',
+  },
+  { field: 'joined_at',
+    headerText: 'Üyelik başlangıcı',
+    width: '150',
+    type:'date',
+    format:'d/M/y',
+    allowEditing: false,
+    textAlign: 'Center' },
 
-  { field: 'HireDate',
-    headerText: 'Hire Date',
+  { field: 'total_expenditure',
+    headerText: 'Toplam Harcama',
+    width: '100',
+    textAlign: 'Center' },
+];
+export const employeesGrid = [
+  { type: 'checkbox', width: '50' },
+  { field: 'name',
+    headerText: 'Isim',
+    width: '150',
+    textAlign: 'Center',
+  },
+  { field: 'joined_at',
+    headerText: 'Ise baslama tarihi',
     width: '135',
-    format: 'yMd',
+    type:'date',
+    format:'d/M/y',
+    allowEditing: false,
     textAlign: 'Center' },
-
-  { field: 'ReportsTo',
-    headerText: 'Reports To',
-    width: '120',
-    textAlign: 'Center' },
-  { field: 'EmployeeID',
-    headerText: 'Employee ID',
-    width: '125',
+];
+export const accountingGrid = [
+  { type: 'checkbox', width: '50' },
+  { field: 'name',
+    headerText: 'Ürün',
+    width: '150',
+    textAlign: 'Center',
+  },
+  { field: 'price',
+  headerText: 'Fiyat',
+  width: '150',
+  format: 'C2',
+  textAlign: 'Center',
+  editType: 'numericedit',
+  },
+  { field: 'joined_at',
+    headerText: 'Satış tarihi',
+    width: '135',
+    type:'date',
+    format:'d/M/y',
+    allowEditing: false,
     textAlign: 'Center' },
 ];
 
 export const links = [
   {
-    title: 'Dashboard',
+    title: 'Yönetim Paneli',
     links: [
       {
         name: 'ecommerce',
+        verbose: 'Detaylar',
         icon: <FiShoppingBag />,
       },
     ],
   },
 
   {
-    title: 'Pages',
+    title: 'Sayfalar',
     links: [
-      {
-        name: 'orders',
-        icon: <AiOutlineShoppingCart />,
-      },
+      // {
+      //   name: 'orders',
+      //   icon: <AiOutlineShoppingCart />,
+      // },
       {
         name: 'employees',
+        verbose: 'Çalışanlar',
         icon: <IoMdContacts />,
       },
       {
         name: 'customers',
+        verbose: 'Müşteriler',
+        icon: <RiContactsLine />,
+      },
+      {
+        name: 'accounting',
+        verbose: 'Ön Muhasebe',
         icon: <RiContactsLine />,
       },
     ],
   },
   {
-    title: 'Apps',
+    title: 'Uygulamalar',
     links: [
       {
         name: 'calendar',
+        verbose: 'Takvim',
         icon: <AiOutlineCalendar />,
       },
       {
         name: 'kanban',
+        verbose: 'İş Akışı',
         icon: <BsKanban />,
       },
-      {
-        name: 'editor',
-        icon: <FiEdit />,
-      },
-      {
-        name: 'color-picker',
-        icon: <BiColorFill />,
-      },
+      // {
+      //   name: 'editor',
+      //   verbose: 'Forum',
+      //   icon: <FiEdit />,
+      // },
+      // {
+      //   name: 'color-picker',
+      //   icon: <BiColorFill />,
+      // },
     ],
   },
-  {
-    title: 'Charts',
-    links: [
-      {
-        name: 'line',
-        icon: <AiOutlineStock />,
-      },
-      {
-        name: 'area',
-        icon: <AiOutlineAreaChart />,
-      },
-    ],
-  },
+  // {
+  //   title: 'Charts',
+  //   links: [
+  //     {
+  //       name: 'line',
+  //       icon: <AiOutlineStock />,
+  //     },
+  //     {
+  //       name: 'area',
+  //       icon: <AiOutlineAreaChart />,
+  //     },
+  //   ],
+  // },
 ];
 
 export const cartData = [
@@ -593,7 +583,7 @@ export const earningData = [
     icon: <MdOutlineSupervisorAccount />,
     amount: '39,354',
     percentage: '-4%',
-    title: 'Customers',
+    title: 'Müşteriler',
     iconColor: '#03C9D7',
     iconBg: '#E5FAFB',
     pcColor: 'red-600',
@@ -602,7 +592,7 @@ export const earningData = [
     icon: <BsBoxSeam />,
     amount: '4,396',
     percentage: '+23%',
-    title: 'Products',
+    title: 'Ürünler',
     iconColor: 'rgb(255, 244, 229)',
     iconBg: 'rgb(254, 201, 15)',
     pcColor: 'green-600',
@@ -611,21 +601,21 @@ export const earningData = [
     icon: <FiBarChart />,
     amount: '423,39',
     percentage: '+38%',
-    title: 'Sales',
+    title: 'Satış',
     iconColor: 'rgb(228, 106, 118)',
     iconBg: 'rgb(255, 244, 229)',
 
     pcColor: 'green-600',
   },
-  {
-    icon: <HiOutlineRefresh />,
-    amount: '39,354',
-    percentage: '-12%',
-    title: 'Refunds',
-    iconColor: 'rgb(0, 194, 146)',
-    iconBg: 'rgb(235, 250, 242)',
-    pcColor: 'red-600',
-  },
+  // {
+  //   icon: <HiOutlineRefresh />,
+  //   amount: '39,354',
+  //   percentage: '-12%',
+  //   title: 'Refunds',
+  //   iconColor: 'rgb(0, 194, 146)',
+  //   iconBg: 'rgb(235, 250, 242)',
+  //   pcColor: 'red-600',
+  // },
 ];
 
 export const recentTransactions = [
@@ -3195,20 +3185,20 @@ export const stackedPrimaryYAxis = {
   labelFormat: '{value}',
 };
 
-export const kanbanData = [
+export const kanbanDatas = [
   {
-    Id: 'Task 1',
+    id: 'Task 1',
     Title: 'Task - 29001',
     Status: 'Open',
     Summary: 'Analyze the new requirements gathered from the customer.',
-    Type: 'Story',
-    Priority: 'Low',
-    Tags: 'Analyze,Customer',
-    Estimate: 3.5,
-    Assignee: 'Nancy Davloio',
-    RankId: 1,
-    Color: '#02897B',
-    ClassName: 'e-story, e-low, e-nancy-davloio',
+    // Type: 'Story',
+    // Priority: 'Low',
+    // Tags: 'Analyze,Customer',
+    // Estimate: 3.5,
+    // Assignee: 'Nancy Davloio',
+    // RankId: 1,
+    // Color: '#02897B',
+    // ClassName: 'e-story, e-low, e-nancy-davloio',
   },
   {
     Id: 'Task 2',

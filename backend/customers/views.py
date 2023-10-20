@@ -1,83 +1,62 @@
-from rest_framework import  generics, mixins
-from rest_framework.decorators import api_view
+from rest_framework import generics, status, viewsets
 from rest_framework.response import Response
-from django.shortcuts import get_object_or_404
-from .models import Customer
-from .serializers import CustomerSerializer
-from api.mixins import StaffEditorPermissionMixin
+from .models import ClickingInstance, Customer
+from .serializers import ClickingInstanceCreateSerializer, ClickingInstanceSerializer, CustomerSerializer
+from rest_framework.decorators import api_view
 
-
-class CustomerListCreateAPIView(
-    StaffEditorPermissionMixin,
-    generics.ListCreateAPIView):
-    queryset= Customer.objects.all()
-    serializer_class = CustomerSerializer
-
-    def perform_create(self, serializer):
-        print(serializer.validated_data)
-        serializer.save()
-class CustomerDetailAPIView(
-    StaffEditorPermissionMixin,
-    generics.RetrieveAPIView):
+class CustomerListCreateView(generics.ListCreateAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
 
-class CustomerUpdateAPIView(
-    StaffEditorPermissionMixin
-    ,generics.UpdateAPIView):
+class CustomerDetailView(generics.RetrieveUpdateDestroyAPIView):
     queryset = Customer.objects.all()
     serializer_class = CustomerSerializer
-    lookup_field = 'pk'
-
-    def perform_update(self, serializer):
-        instance = serializer.save()
-
-class CustomerDestroyAPIView(
-    StaffEditorPermissionMixin,
-    generics.DestroyAPIView):
-    queryset = Customer.objects.all()
-    serializer_class = CustomerSerializer
-    lookup_field = 'pk'
-
-    def perform_destroy(self, instance):
-        super().perform_destroy(instance)
-
-class CustomerMixinView(
-    mixins.CreateModelMixin,
-    mixins.ListModelMixin,
-    mixins.RetrieveModelMixin,
-    generics.GenericAPIView
-    ):
-    queryset= Customer.objects.all()
-    serializer_class = CustomerSerializer
-    def get(self, request, *args, **kwargs):
-        print(args,kwargs)
-        pk= kwargs.get("pk")
-        if pk is not None:
-            return self.retrieve(request, *args, **kwargs)
-        return self.list(request, *args, **kwargs)
-    def post(self, request, *args, **kwargs):
-        return self.create(request, *args, **kwargs)
 
 
+@api_view(['POST'])
+def bulk_delete_customers(request):
+    customer_ids = request.data.get('customer_ids', [])
+    print(customer_ids, 'are the ids')
+    
+    # You can add additional authorization and validation checks here.
+    
+    # Delete the selected customers
+    deleted_count = Customer.objects.filter(id__in=customer_ids).delete()
+    
+    return Response({'message': f'{deleted_count[0]} customers deleted successfully'}, status=status.HTTP_204_NO_CONTENT)
 
-@api_view(["GET","POST"])
-def customer_alt_view(request, pk=None, *args, **kwargs):
-    method = request.method
+class ClickingInstanceListCreateViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        customer_id = self.kwargs['customerpk']
+        return ClickingInstance.objects.filter(customer=customer_id)    
+    serializer_class = ClickingInstanceSerializer
 
-    if method == "GET":
-        if pk is not None:
-            #detail view
-            obj = get_object_or_404(Customer, pk=pk)
-            data = CustomerSerializer(obj, many=False).data 
-            return Response(data)
-        #list view
-        queryset=Customer.objects.all()
-        data = CustomerSerializer(queryset, many=True).data
-        return Response(data)
-    if method == "POST":
-        serializer= CustomerSerializer(data=request.data)
-        if serializer.is_valid(raise_exception=True):
-            print(serializer.data)
+    def create(self, request, *args, **kwargs):
+        # Ensure that the customer is associated with the clicking instance.
+        customer_id = request.data.get('customer', None)
+        if not customer_id:
+            return Response({'customer': ['This field is required.']}, status=status.HTTP_400_BAD_REQUEST)
+        
+        customer = Customer.objects.get(pk=customer_id)
+        serializer = ClickingInstanceCreateSerializer(data=request.data)
+
+        if serializer.is_valid():
+            clicking_instance = serializer.save(customer=customer)
+            return Response(ClickingInstanceSerializer(clicking_instance).data, status=status.HTTP_201_CREATED)
+
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+    
+class ClickingInstanceDetailUpdateViewSet(viewsets.ModelViewSet):
+    def get_queryset(self):
+        customer_id = self.kwargs['customerpk']
+        click_instance_id = self.kwargs['pk']
+        return ClickingInstance.objects.filter(customer=customer_id, pk=click_instance_id)    
+    serializer_class = ClickingInstanceSerializer
+
+    def update(self, request, *args, **kwargs):
+        instance = self.get_object()
+        serializer = ClickingInstanceSerializer(instance, data=request.data, partial=True)
+        if serializer.is_valid():
+            serializer.save()
             return Response(serializer.data)
-        return Response({"invalid":"not good data"}, status=400)
+        return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
