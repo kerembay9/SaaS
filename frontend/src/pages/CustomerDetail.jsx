@@ -6,6 +6,7 @@ import ImageMarker from 'react-image-marker';
  
 
 const CustomerDetail = () => {
+  const [message, setMessage] = useState(''); // State to store the message
   const handleSelectChange = (event, click_inst_id) => {
     if (event.target.value === 'del') {
       // id and click instance id are different solve it and rest is easy
@@ -48,7 +49,9 @@ const CustomerDetail = () => {
         console.error('Fetch error:', error);
     });
   };};
-
+  const handleSendMessage = () => {
+    console.log('Message:', message);
+}
   const CustomMarker = (props) => {
     return (
       <div style={{ display: "flex" }}>
@@ -122,6 +125,7 @@ const CustomerDetail = () => {
 
    useEffect(() => {
      const fetchData = async () => {
+      console.log('entered fetch data')
        try {
          const response = await fetch(`http://127.0.0.1:8000/customers/${id}/`);
          const data = await response.json();
@@ -134,14 +138,20 @@ const CustomerDetail = () => {
       try {
         const response = await fetch(`http://127.0.0.1:8000/customers/${id}/click-instance/`);
         const data = await response.json();
-        setMarkers(data);
+        const convertedData = data.map(item => ({
+          ...item,
+          left: parseFloat(item.x),
+          top: parseFloat(item.y),
+        }));
+        setMarkers(convertedData);
+        console.log(convertedData)
       } catch (error) {
         console.error('Error fetching marker data', error);
       }
     };
  
-     fetchData();
-     fetchClickData();
+     fetchData()
+     .then(()=> fetchClickData() )
    }, [id]);
    if (!patient) {
      return (
@@ -156,14 +166,36 @@ const CustomerDetail = () => {
       <div className=' flex flex-row text-justify items-center justify-center text-lg'>
         <div className=' flex flex-row text-justify items-center justify-center text-lg'>
           
-                <div className='flex flex-col p-2'>
-            <p>Müşteri No: {patient.id}</p>
-            <p>İsim: {patient.name}</p>
+        <div className="border p-4 rounded-lg shadow-md mb-2">
+            <h2 className="text-2xl font-semibold">Hasta Bilgileri</h2>
+            <div className="grid grid-cols-2 gap-4 mt-4">
+                <div>
+                    <span className="font-semibold pr-1">Adı:</span> {patient.name || "Yetersiz Bilgi"}
                 </div>
-                <div className='flex flex-col p-2'>
-            <p>Doğum Tarihi: {patient.dateOfBirth}</p>
-            <p>Detay bir şey:</p>
+                <div>
+                    <span className="font-semibold pr-1">Üyelik:</span> {patient.membership || "Yetersiz Bilgi"}
                 </div>
+                <div>
+                    <span className="font-semibold pr-1">Telefon:</span> {patient.phone || "Yetersiz Bilgi"}
+                </div>
+                <div>
+                    <span className="font-semibold pr-1">Yaş:</span> {patient.age || "Yetersiz Bilgi"}
+                </div>
+                <div>
+                    <span className="font-semibold pr-1">Kilo:</span> {patient.weight || "Yetersiz Bilgi"}
+                </div>
+                <div>
+                    <span className="font-semibold pr-1">Boy:</span> {patient.height || "Yetersiz Bilgi"}
+                </div>
+                <div>
+                    <span className="font-semibold pr-1">Vücut Kitle İndeksi (VKİ):</span> {patient.bmi || "Yetersiz Bilgi"}
+                </div>
+                <div>
+                    <span className="font-semibold pr-1">VKİ Kategorisi:</span> {patient.bmi_category || "Yetersiz Bilgi"}
+                </div>
+            </div>
+        </div>
+            
         </div>
       </div>
       <div className="flex flex-col items-center justify-center">
@@ -174,6 +206,29 @@ const CustomerDetail = () => {
       markerComponent={CustomMarker}
       />
       </div>
+      <div className="col-span-2 mt-4">
+                    <input
+                        type="text"
+                        placeholder="Mesajınızı buraya yazın"
+                        className="w-full p-2 border rounded h-40 min-h-full"
+                        value={message}
+                        onChange={(e) => setMessage(e.target.value)}
+                    />
+                </div>
+
+                <div className="col-span-2 mt-4">
+                    <button
+                        onClick={handleSendMessage}
+                        className="w-full bg-blue-500 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded"
+                    >
+                        Gönder
+                    </button>
+                </div>
+                <div className="container mx-auto mt-8 p-4">
+            <div>
+              Lorem, ipsum dolor sit amet consectetur adipisicing elit. Fugiat, vel, laudantium omnis repellendus qui aperiam repellat enim rem eaque quis molestiae totam quasi eum optio natus voluptas maxime adipisci? Error deserunt, provident voluptatum libero labore sint suscipit consequatur dolores veritatis nemo mollitia molestias esse vero eaque itaque facilis voluptatibus. Numquam debitis eaque fuga cum ex fugit cumque. Quibusdam facilis, itaque dolorum possimus nemo architecto aliquam illo, facere quisquam sint suscipit dolor impedit delectus magnam optio. Officiis, sapiente laudantium eligendi soluta velit magnam accusantium? Cum odio rem at consectetur explicabo mollitia? At delectus expedita, veniam tempore ab laudantium fugiat animi explicabo.
+            </div>
+        </div>
     </div>
    );
 };

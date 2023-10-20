@@ -14,7 +14,8 @@ class ClickingInstanceCreateSerializer(serializers.ModelSerializer):
 
 class CustomerSerializer(serializers.ModelSerializer):
     clicking_instances = ClickingInstanceSerializer(many=True, read_only=True)
-
+    bmi = serializers.ReadOnlyField()
+    bmi_category = serializers.ReadOnlyField()
     class Meta:
         model = Customer
         fields = '__all__'
